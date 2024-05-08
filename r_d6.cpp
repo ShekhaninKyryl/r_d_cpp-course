@@ -81,9 +81,27 @@ void fibonachiProgression()
 
 }
 
+int factorial(int n)
+{
+    if (n <= 1)
+        return n;
+    return factorial(n - 1) * n;
+}
+
+void factorialProgression()
+{
+    int numberOfLastElement = 0;
+    do {
+        std::cout << "Enter number of last element: ";
+        std::cin >> numberOfLastElement;
+    } while (!numberOfLastElement);
+
+    std::cout << "Factorial value is: " << factorial(numberOfLastElement);
+}
+
 
 
 int main()
 {
-    fibonachiProgression();
+    factorialProgression();
 }
