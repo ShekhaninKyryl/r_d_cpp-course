@@ -99,9 +99,76 @@ void factorialProgression()
     std::cout << "Factorial value is: " << factorial(numberOfLastElement);
 }
 
+void draw(char variant = 'a')
+{
+    int numberOfRows = 0;
+    do {
+        std::cout << "Enter number of rows: ";
+        std::cin >> numberOfRows;
+    } while (!numberOfRows);
+
+    switch (variant)
+    {
+    case 'a': {
+        for (int i = numberOfRows; i > 0; i--) {
+            for (int j = i; j > 0; j--) {
+            std::cout << "*";
+            }
+            std::cout << std::endl;
+        }
+        break;
+    }
+    case 'b': {
+        for (int i = 0; i < numberOfRows; i++) {
+            for (int j = 0; j <= i; j++) {
+                std::cout << "*";
+            }
+            std::cout << std::endl;
+        }
+        break;
+    };
+    case 'c': {
+        for (int i = 0; i < numberOfRows; i++) {
+            for (int j = 0; j <= numberOfRows; j++) {
+                std::cout << "*";
+            }
+            std::cout << std::endl;
+        }
+        break;
+    };
+    case 'd': {
+        for (int i = 0; i < numberOfRows; i++) {
+            for (int j = 0; j <= i-1; j++) {
+                std::cout << " ";
+            }
+
+            for (int j = 0; j <= numberOfRows; j++) {
+                std::cout << "*";
+            }
+            std::cout << std::endl;
+        }
+        break;
+    }
+    case 'e': {
+        bool value = true;
+        for (int i = 0; i < numberOfRows; i++) {
+            for (int j = 0; j <= i; j++) {
+                std::cout<< value;
+                value = !value;
+            }
+            value = i%2;
+            std::cout << std::endl;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 
 
 int main()
 {
-    factorialProgression();
+    draw('e');
 }
