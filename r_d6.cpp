@@ -62,9 +62,28 @@ void arithmeticProgression()
     return;
 }
 
+int fibonachi(int n)
+{
+    if (n <= 1)
+        return n;
+    return fibonachi(n - 1) + fibonachi(n - 2);
+}
+
+void fibonachiProgression()
+{
+    int numberOfLastElement = 0;
+    do {
+        std::cout << "Enter number of last element: ";
+        std::cin >> numberOfLastElement;
+    } while (!numberOfLastElement);
+
+    std::cout << "Fibonachi value is: " << fibonachi(numberOfLastElement);
+
+}
+
 
 
 int main()
 {
-    arithmeticProgression();
+    fibonachiProgression();
 }
