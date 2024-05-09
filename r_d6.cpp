@@ -28,6 +28,7 @@ F1 = 1, F2 = 1, F3 = 2, F4 = 3, F5 = 5, F6 = 8, F7 = 13, F8 = 21
 */
 
 #include <iostream>
+#include <cctype>
 
 void arithmeticProgression()
 {
@@ -166,9 +167,37 @@ void draw(char variant = 'a')
     }
 }
 
+void charTransform()
+{
+    char control;
+    int sum = 0;
+    do
+    {
+        std::cout << "Enter symbol ( print '.' to exit): ";
+        std::cin >> control;
+
+        if (islower(control)) {
+            std::cout << "Conwert to upercase: " << (char)toupper(control) << std::endl;
+        }
+        else if (isupper(control)) {
+            std::cout << "Conwert to lowercase: " << (char)tolower(control) << std::endl;
+        }
+        else if (isdigit(control)) {
+            sum = sum +  atoi(&control);
+            std::cout << "Result: " << sum << std::endl;
+        }
+        else if (control == '.') {
+            std::cout << "Exiting from program... " << std::endl;
+            return;
+        }
+        else {
+            std::cout << "You entered incorrect value, try again." << std::endl;
+        }
+    } while (control != '.');
+}
 
 
 int main()
 {
-    draw('e');
+    charTransform();
 }
