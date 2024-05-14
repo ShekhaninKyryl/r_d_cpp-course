@@ -70,6 +70,27 @@ int fibonachi(int n)
     return fibonachi(n - 1) + fibonachi(n - 2);
 }
 
+int fobinachiLoop(int n)
+{
+    int curentNumber = 1;
+    int prevNumber = 0;
+    int tmp;
+
+    for (int i = 0; i < n - 1; i++) {
+
+        //Fn
+        tmp = curentNumber;
+
+        //Fn+1 = Fn + Fn-1
+        curentNumber = curentNumber + prevNumber;
+
+        //Fn-1 = Fn
+        prevNumber = tmp;
+    }
+
+    return curentNumber;
+}
+
 void fibonachiProgression()
 {
     int numberOfLastElement = 0;
@@ -78,7 +99,9 @@ void fibonachiProgression()
         std::cin >> numberOfLastElement;
     } while (!numberOfLastElement);
 
-    std::cout << "Fibonachi value is: " << fibonachi(numberOfLastElement);
+    std::cout << "Fibonachi value is: " << fibonachi(numberOfLastElement) << std::endl;
+
+    std::cout << "FibonachiLoop value is: " << fobinachiLoop(numberOfLastElement)<< std::endl;
 
 }
 
@@ -89,6 +112,15 @@ int factorial(int n)
     return factorial(n - 1) * n;
 }
 
+int factorialLoop(int n)
+{
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
 void factorialProgression()
 {
     int numberOfLastElement = 0;
@@ -97,7 +129,8 @@ void factorialProgression()
         std::cin >> numberOfLastElement;
     } while (!numberOfLastElement);
 
-    std::cout << "Factorial value is: " << factorial(numberOfLastElement);
+    std::cout << "Factorial value is: " << factorial(numberOfLastElement) << std::endl;
+    std::cout << "FactorialLoop value is: " << factorialLoop(numberOfLastElement) << std::endl;
 }
 
 void draw(char variant = 'a')
@@ -199,5 +232,5 @@ void charTransform()
 
 int main()
 {
-    charTransform();
+    factorialProgression();
 }
