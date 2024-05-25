@@ -18,7 +18,7 @@ int main()
 
 
 	while (roundCount) {
-		RoundResult result = gameRaund(roundCount, isExit);
+		RoundResult result = gameRound(roundCount, isExit);
 
 		switch (result)
 		{

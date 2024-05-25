@@ -30,7 +30,7 @@ char convertVariantToSymbol(Variant value);
 
 void showStatistics(int winCount, int drawCount, int loosCount);
 int startGame();
-RoundResult gameRaund(int &raundNumber, bool &isExit);
+RoundResult gameRound(int &raundNumber, bool &isExit);
 
 /*
 * 
@@ -38,5 +38,6 @@ RoundResult gameRaund(int &raundNumber, bool &isExit);
 *  0 standoff
 *  1 right win
 */
-int checkWinner(Variant left, Variant right);
+int checkWinnerByMath(Variant left, Variant right);
+int checkWinnerByConditions(Variant left, Variant right);
 

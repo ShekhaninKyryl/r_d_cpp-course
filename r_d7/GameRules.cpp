@@ -22,7 +22,6 @@ char convertVariantToSymbol(Variant value)
 	case Variant::Scissors: return 's';
 	default: return 'u';
 	}
-	return 0;
 }
 
 void showPossibleVariant()
@@ -30,8 +29,6 @@ void showPossibleVariant()
 	std::cout << '\t' << "r - rock" << std::endl;
 	std::cout << '\t' << "p - paper" << std::endl;
 	std::cout << '\t' << "s - scissors" << std::endl;
-
-	return;
 }
 
 int validateEnteredValue(char symbol)
@@ -60,21 +57,21 @@ Variant convertToVariant(char symbol)
 	return Variant();
 }
 
-void showStatistics(int winCount, int drawCount, int loosCount)
+void showStatistics(int winCount, int drawCount, int loseCount)
 {
 	std::cout << "Thanks for playing. Your final stats: " << std::endl;
 	std::cout << '\t' << "number of wins - " << winCount << std::endl;
-	std::cout << '\t' << "number of losses - " << loosCount << std::endl;
+	std::cout << '\t' << "number of losses - " << loseCount << std::endl;
 	std::cout << '\t' << "number of draws - " << drawCount << std::endl;
 
-	const int max = std::max({ winCount, loosCount, drawCount });
+	const int max = std::max({ winCount, loseCount, drawCount });
 	if (max == winCount) {
 		std::cout << "---You're smarter than my PC algo!---" << std::endl;
 	}
 	else if (max == drawCount) {
 		std::cout << "---You're almost win!---" << std::endl;
 	}
-	else if (max == loosCount) {
+	else if (max == loseCount) {
 		std::cout << "---You should try again! Never give up!---" << std::endl;
 	}
 	else {
@@ -85,11 +82,11 @@ void showStatistics(int winCount, int drawCount, int loosCount)
 	return;
 }
 
-RoundResult gameRaund(int& raundNumber, bool& isExit)
+RoundResult gameRound(int& raundNumber, bool& isExit)
 {
 	// generate choose form -1 to 1
 	const Variant randomChoose = convertToVariant(std::rand() % VARIANT_LENGTH);
-	Variant userChoose;
+	Variant userChoice;
 
 	std::cout << "To make your turn enter one of possible symbols: " << std::endl;
 	showPossibleVariant();
@@ -108,12 +105,12 @@ RoundResult gameRaund(int& raundNumber, bool& isExit)
 		}
 	} while (!isCorrectInput);
 
-	userChoose = convertToVariant(input);
+	userChoice = convertToVariant(input);
 
-	std::cout << "Your choise: " << convertVariantToSymbol(userChoose) << std::endl;
+	std::cout << "Your choise: " << convertVariantToSymbol(userChoice) << std::endl;
 	std::cout << "PC choice: " << convertVariantToSymbol(randomChoose) << std::endl;
 
-	int result = checkWinner(userChoose, randomChoose);
+	int result = checkWinnerByMath(userChoice, randomChoose);
 
 	raundNumber -= 1;
 	if (!raundNumber) isExit = true;
@@ -130,7 +127,7 @@ RoundResult gameRaund(int& raundNumber, bool& isExit)
 	return RoundResult::Unknown;
 }
 
-int checkWinner(Variant left, Variant right)
+int checkWinnerByMath(Variant left, Variant right)
 {
 
 	/*
@@ -159,6 +156,56 @@ int checkWinner(Variant left, Variant right)
 	//2-S	2	3	4
 	case Variant::Scissors: {
 		return sum == 2 ? 1 : sum - 4;
+	}
+	default:
+		std::cout << "!!!Warning: unresolvew condition!!!" << std::endl;
+		return 0;
+	}
+}
+
+int checkWinnerByConditions(Variant left, Variant right)
+{
+	const int sum = static_cast<int>(left) + static_cast<int>(right);
+	switch (left)
+	{
+	case Variant::Rock: {
+		switch (right)
+		{
+		case Variant::Rock:
+			return 0;
+		case Variant::Paper:
+			return 1;
+		case Variant::Scissors:
+			return -1;
+		default:
+			break;
+		}
+	}
+	case Variant::Paper: {
+		switch (right)
+		{
+		case Variant::Rock:
+			return -1;
+		case Variant::Paper:
+			return 0;
+		case Variant::Scissors:
+			return 1;
+		default:
+			break;
+		}
+	}
+	case Variant::Scissors: {
+		switch (right)
+		{
+		case Variant::Rock:
+			return 1;
+		case Variant::Paper:
+			return -1;
+		case Variant::Scissors:
+			return 0;
+		default:
+			break;
+		}
 	}
 	default:
 		std::cout << "!!!Warning: unresolvew condition!!!" << std::endl;
