@@ -3,17 +3,6 @@
 #define ROWS 3
 #define COLS 3
 
-/*
-1) Реалізувати функцію лінійного пошуку в двовимірному масиві; 
-bool find(int arr_2d[ROWS][COLUMNS], int toFind)
-
-2) Функція bool isSorted(const int* arr, int size, SortingDirection direction) 
-яка перевіряє, чи заданий масив посортований за спаданням, зростанням, 
-де Sorting Direction: enum class SortingDirection { ascending, descending };
-
-3) Написати функції обходу двовимірного масива різними способами:
-*/
-
 bool find(int arr_2d[][COLS], int toFind, unsigned short rows = ROWS) {
     if (rows <= 0 && COLS <= 0) return false;
 
