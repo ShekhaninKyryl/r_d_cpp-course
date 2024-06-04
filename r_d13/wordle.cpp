@@ -22,10 +22,10 @@ TypeOfWord inputTypeOfWord()
 			return TypeOfWord::Exit;
 		}
 		case '1': {
-			return TypeOfWord::RandomWord;
+			return TypeOfWord::WordOfTheDay;
 		}
 		case '2': {
-			return TypeOfWord::WordOfTheDay;
+			return TypeOfWord::RandomWord;
 		}
 		default: {
 			std::cout << std::endl << "Unknown type, please try again!" << std::endl;

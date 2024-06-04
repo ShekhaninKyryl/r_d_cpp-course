@@ -7,7 +7,10 @@ enum class TypeOfWord
 	Exit,
 };
 
-void getWord(TypeOfWord type, char*& wordSource);
+std::string readFromFile(const std::string filePath, int lineNumber, std::string currentDate);
+bool writeToFile(const std::string filePath, std::string word, std::string currentDate, int tries);
+
+void getWord(TypeOfWord type, char*& wordSource, const std::string filePath);
 bool compareWords(char* word, char* userInput, char* result);
 
 bool isSymbolExist(char* word, char symbol, unsigned short position, char*& result, bool* ignorePosition);
