@@ -40,6 +40,14 @@ Suppose the hidden word is **`PLANT`**.
 - **Use Process of Elimination**: Based on the feedback, eliminate letters that are not in the word and adjust your guesses to narrow down the possibilities.
 - **Look for Patterns**: Pay attention to the positions of the correct letters to form potential words.
 
+## Work with file
+- **To use file** you should place `word.txt` in the same directory with `.exe` file.
+- Each row of file contains word to found in next format
+```
+[WORD]:DATE:TRIE
+Apple:5/4:3
+```
+
 ## Additional Features
 - **Daily Puzzle**: Wordle offers a new hidden word puzzle every day, providing a fresh challenge each time.
 - **Share Results**: After completing the puzzle, players can share their results with friends without revealing the hidden word.
