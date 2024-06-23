@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -31,22 +32,19 @@ double getAverage(Student student) {
 }
 
 void sortStudentsByAvarage(Student* students, unsigned short studentsCount) {
-    Student tmp;
-    for (int i = 0; i < studentsCount - 1; i++) {
-        for (int j = 0; j < studentsCount - i - 1; j++) {
-            if (getAverage(students[j]) > getAverage(students[j + 1])) {
-                tmp = students[j];
-                students[j] = students[j + 1];
-                students[j + 1] = tmp;
-            }
-        }
-    }
+    std::sort(students, students + studentsCount, [](const Student& a, const Student& b) {
+        return getAverage(a) < getAverage(b);
+        });
 }
 
 Student* getTheBestStudent(Student* students, unsigned short studentsCount) {
+    if (studentsCount == 0) {
+        return nullptr;
+    }
+
     int theBestIndex = 0;
-    for (int i = 0; i < studentsCount - 1; i++) {
-        if (getAverage(students[i+1]) > getAverage(students[i])) {
+    for (int i = 1; i < studentsCount; ++i) {
+        if (getAverage(students[i]) > getAverage(students[theBestIndex])) {
             theBestIndex = i;
         }
     }
@@ -65,8 +63,8 @@ unsigned countStudentsBetterThanN(Student* students, unsigned short studentsCoun
     return counter;
 }
 
-void getBestStudents(Student* inStudents, unsigned inSize, Student*& outStudents, unsigned& outSize, unsigned percent) {
-    outSize = static_cast<unsigned>((inSize * percent) / 100.0);
+void getBestStudents(Student* inStudents, unsigned inSize, Student*& outStudents, unsigned& outSize, unsigned passRate) {
+    outSize = countStudentsBetterThanN(inStudents, inSize, passRate);
 
     outStudents = new Student[outSize];
     sortStudentsByAvarage(inStudents, inSize);
@@ -89,7 +87,7 @@ int main()
     Student* bestStudents = nullptr;
     unsigned int bestStudentsSize;
 
-    getBestStudents(students, STUDENTS_COUNT, bestStudents, bestStudentsSize, 70);
+    getBestStudents(students, STUDENTS_COUNT, bestStudents, bestStudentsSize, 2);
 
 
     /*
@@ -114,7 +112,6 @@ Marks: 3 2 5 8
     }
 
 
-    delete bestStudents;
-
+    delete [] bestStudents;
     return 0;
 }
