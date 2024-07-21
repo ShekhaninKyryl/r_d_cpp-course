@@ -1,0 +1,42 @@
+# Ignore build directories
+/build/
+/bin/
+/obj/
+
+# Ignore Visual Studio files
+*.opensdf
+*.sdf
+*.vcxproj.user
+*.VC.db
+
+# Ignore generated files
+*.exe
+*.out
+*.dll
+*.so
+*.dylib
+
+# Ignore object files
+*.o
+*.obj
+
+# Ignore libraries
+*.lib
+*.a
+
+# Ignore debug files
+*.log
+*.dmp
+
+# Ignore generated documentation
+*.doc
+*.pdf
+
+# Ignore editor-specific files
+.vscode/
+.idea/
+*.swp
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
