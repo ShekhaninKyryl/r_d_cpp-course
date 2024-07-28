@@ -44,7 +44,12 @@ void Fight::victoryFlow()
 	//  Add new cards to hand
 	//  Generate new Outfit items???
 	//  Increase Level by 0,1,2
-	m_munchkin->updateLevelBy(1);
+
+	VictoryPolicy* policy = m_monster->getVictoryPolicy();
+	if (policy == nullptr) m_munchkin->updateLevelBy(1);
+	else {
+		policy->apply(m_munchkin);
+	};
 
 	m_result = FightResult::MunchkinWon;
 }

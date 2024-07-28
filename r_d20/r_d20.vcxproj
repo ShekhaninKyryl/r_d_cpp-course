@@ -127,7 +127,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Fight.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="ItemDeck.cpp" />
+    <ClCompile Include="Munchkin.cpp" />
+    <ClCompile Include="ModifierDeck.cpp" />
+    <ClCompile Include="MonsterDeck.cpp" />
+    <ClCompile Include="Runaway.cpp" />
     <ClCompile Include="r_d20.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Deck.h" />
+    <ClInclude Include="Fight.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemDeck.h" />
+    <ClInclude Include="Munchkin.h" />
+    <ClInclude Include="Modifier.h" />
+    <ClInclude Include="ModifierDeck.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterDeck.h" />
+    <ClInclude Include="Runaway.h" />
+    <ClInclude Include="Tribe.h" />
+    <ClInclude Include="VictoryPolicy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

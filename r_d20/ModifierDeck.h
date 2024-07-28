@@ -1,19 +1,17 @@
 #pragma once
 #include <vector>
 
+#include "Deck.h"
+
 //forward declaration to not include header into header which will increase compilation time
 class Modifier;
 
-class ModifierDeck
+class ModifierDeck:Deck<Modifier>
 {
 public:
 	ModifierDeck();
-	~ModifierDeck();
 
-	Modifier* generateModifier() const;
+	Modifier* generateModifier();
 
-	std::vector<Modifier*> generateModifiers() const { return m_modifiersDatabase; }
-
-private:
-	std::vector<Modifier*> m_modifiersDatabase;
+	std::vector<Modifier*> generateModifiers() { return available; }
 };

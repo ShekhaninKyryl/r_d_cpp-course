@@ -4,36 +4,21 @@
 
 ModifierDeck::ModifierDeck()
 {
-	m_modifiersDatabase =
-	{
-		{new SimpleModifier{3}},
-		{new SimpleModifier{3}},
-		{new SimpleModifier{2}},
-		{new SimpleModifier{2}},
-		{new SimpleModifier{2}},
-		{new SimpleModifier{4}},
-		{new SimpleModifier{1}},
-		{new SimpleModifier{1}},
-		{new SimpleModifier{1}},
-		{new DoubleMunchkinLevel{}},
-		{new DoubleMunchkinLevel{}},
-		//{new HalvesMonsterLevel{Tribe::Undead}},
-		//{new HalvesMonsterLevel{Tribe::God}}
-	};
+	database[new SimpleModifier{ 1 }] = 3;
+	database[new SimpleModifier{ 2 }] = 3;
+	database[new SimpleModifier{ 3 }] = 2;
+	database[new SimpleModifier{ 4 }] = 1;
+	database[new SimpleModifier{ 5 }] = 1;
+	database[new DoubleMunchkinLevel{}] = 1;
+	database[new HalvesMonsterLevel{ Tribe::Undead }] = 2;
+	database[new HalvesMonsterLevel{ Tribe::God }] = 2;
+	database[new HalvesMonsterLevel{ Tribe::Demon }] = 2;
+
+
+	fill();
 }
 
-ModifierDeck::~ModifierDeck()
+Modifier* ModifierDeck::generateModifier()
 {
-	//TODO: Clear memory
-}
-
-Modifier* ModifierDeck::generateModifier() const
-{
-	//#TODO: this call should return unique modifier every time
-	//either for as long as the same game is being played
-	//or unless ALL cards were generated from database to the game - in this case 
-	//make ALL cards available again
-
-	unsigned int idx = std::rand() % m_modifiersDatabase.size();
-	return m_modifiersDatabase[idx];
+	return this->generate();
 }

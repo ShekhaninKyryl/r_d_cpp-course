@@ -27,9 +27,12 @@ public:
 	const std::vector<Modifier*>& getModifiers() const { return m_modifiers; }
 	void addModifiers(const std::vector<Modifier*>& modifiers) { m_modifiers = modifiers; }
 
-	//TODO: Implement, by index or by pointer or at random
-	void removeModifierFromHand() {}
-	void removeItemEquipped() {}
+	void removeModifierFromHand(std::size_t index) { 
+		m_modifiers.erase(m_modifiers.begin() + index);
+	}
+	void removeItemEquipped(std::size_t index) {
+		m_items.erase(m_items.begin() + index);
+	}
 
 private:
 	uint m_level = 1;

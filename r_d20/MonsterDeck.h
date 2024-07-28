@@ -1,16 +1,16 @@
 #pragma once
-#include <vector>
+#include <map>
 
-class Monster;
+#include "Deck.h"
+#include "Monster.h"
+#include "ItemDeck.h"
+#include "ModifierDeck.h"
 
-class MonsterDeck
+
+class MonsterDeck:Deck<Monster>
 {
 public:
 	MonsterDeck();
-	~MonsterDeck();
 
-	Monster* generateMonster() const;
-
-private:
-	std::vector<Monster*> m_monstersDatabase;
+	Monster* generateMonster();
 };

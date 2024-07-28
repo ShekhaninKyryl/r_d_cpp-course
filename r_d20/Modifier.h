@@ -1,7 +1,10 @@
 #pragma once
 #include <string>
+
 #include "Monster.h"
 #include "Munchkin.h"
+#include "Tribe.h"
+
 
 class Modifier
 {
@@ -54,11 +57,19 @@ class HalvesMonsterLevel : public Modifier
 {
 public:
 	//#TODO: cut monster's power in 2 if he is of type tribe
+	HalvesMonsterLevel(Tribe tribe) {
+		m_tribe = tribe;
+	}
+	virtual void apply(Munchkin*, Monster* monster) override {
+		if (monster->getTribe() == m_tribe)
+		m_monsterPowerChange = monster->getLevel() / 2;
+	};
 
-	HalvesMonsterLevel(Tribe tribe) {} //implement
-	virtual void apply(Munchkin*, Monster* monster) override {} //implement
+	virtual std::string getFullInfo() const override { return "Cut monster's power in 2 if it is " + tribeToString(m_tribe); };
 
-	virtual std::string getFullInfo() const override { return ""; } //implement
+private: 
+	Tribe m_tribe;
+
 };
 
 //#TODO: Add unique modifier munchkin/monster specific

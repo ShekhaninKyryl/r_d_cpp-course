@@ -1,6 +1,9 @@
 #pragma once
-#include "Tribe.h"
+#include <ctime>
 #include <string>
+
+#include "Tribe.h"
+
 
 class Item
 {
@@ -63,6 +66,48 @@ public:
 	virtual std::string getFullInfo() const override
 	{
 		return "\"" + getName() + "\"" + ", power:" + std::to_string(getBasePower()) + ", skills: x2 vs UNDEADS!\n";
+	}
+};
+
+class DavidsSling : public Weapon
+{
+public:
+	DavidsSling(const std::string& name, int power) : Weapon(name, power) {}
+
+	virtual int getPower(Tribe monsterTribeModifier) const override
+	{
+		switch (monsterTribeModifier)
+		{
+		case Tribe::Goliath:
+		case Tribe::Giant:
+			return m_power * 3;
+		default:
+			return m_power;
+		}
+	}
+
+	virtual std::string getFullInfo() const override
+	{
+		return "\"" + getName() + "\"" + ", power: " + std::to_string(getBasePower()) + ", skills: x3 vs GOLIATHS!\n";
+	}
+};
+
+class D20Cube : public Weapon
+{
+public:
+	D20Cube(const std::string& name, int power) : Weapon(name, power) {}
+
+	virtual int getPower(Tribe monsterTribeModifier) const override
+	{
+		std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+		int roll = std::rand() % 20 + 1;
+		return m_power + roll;
+	}
+
+	virtual std::string getFullInfo() const override
+	{
+		return "\"" + getName() + "\"" + ", power: " + std::to_string(getBasePower()) + ", skills: randomly add [1, 20] power!\n";
 	}
 };
 

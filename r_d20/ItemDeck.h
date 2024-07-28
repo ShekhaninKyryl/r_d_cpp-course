@@ -1,16 +1,14 @@
 #pragma once
 #include <vector>
+#include "Deck.h"
 
 class Item;
 
-class ItemDeck
+class ItemDeck:Deck<Item>
 {
 public:
 	ItemDeck();
-	~ItemDeck();
 
-	std::vector<Item*> generateItems() const;
-
-private:
-	std::vector<Item*> m_itemsDataBase;
+	Item* generateItem();
+	std::vector<Item*> generateItems();
 };
