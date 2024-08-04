@@ -8,13 +8,15 @@ DynamicIntArray::DynamicIntArray()
 
 DynamicIntArray::DynamicIntArray(std::size_t size)
 {
-	this->array = new int[size];
+	if (size == 0) this->array = nullptr;
+	else this->array = new int[size];
+
 	this->size = size;
 }
 
 DynamicIntArray::DynamicIntArray(const DynamicIntArray& other)
 {
-	std::size_t originalSize = other.getSize();
+	const std::size_t originalSize = other.getSize();
 	this->array = new int[originalSize];
 	this->size = originalSize;
 
@@ -59,10 +61,28 @@ const int& DynamicIntArray::operator[](std::size_t index) const
 
 void DynamicIntArray::setSize(std::size_t newSize)
 {
+	int* newArray = new int[newSize];
+	const std::size_t elementsToCopy = (newSize < this->size) ? newSize : this->size;
+
+	for (std::size_t i = 0; i < elementsToCopy; ++i)
+	{
+		newArray[i] = this->array[i];
+	}
+
+
+	if (newSize > this->size)
+	{
+		for (std::size_t i = elementsToCopy; i < newSize; ++i)
+		{
+			newArray[i] = 0;
+		}
+	}
+
+
 	delete[] this->array;
 
 	this->size = newSize;
-	this->array = new int[newSize];
+	this->array = newArray;
 }
 
 std::size_t DynamicIntArray::getSize() const
@@ -96,7 +116,7 @@ bool DynamicIntArray::operator!=(const DynamicIntArray& other)
 
 void DynamicIntArray::push_back(int element)
 {
-	std::size_t newSize = this->getSize() + 1;
+	const std::size_t newSize = this->getSize() + 1;
 	int* newArray = new int[newSize];
 
 	for (std::size_t i = 0; i < this->getSize(); i++) {
