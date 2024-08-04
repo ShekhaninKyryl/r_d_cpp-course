@@ -66,7 +66,7 @@ int main()
 	DynamicIntArray<int> array1;
 	array1.reserve(20);
 	array1.push_back(1);
-	array1.push_back(2); // Exeption Here =((
+	array1.push_back(2);
 	array1.push_back(3);
 	array1.push_back(4);
 	array1.push_back(5);

@@ -14,19 +14,28 @@ public:
 
     //c-tor with size
     DynamicIntArray(std::size_t size) {
-        this->array = new T[size];
+        if (size == 0) {
+            this->array = nullptr;
+            this->capacity = 0;
+        }
+        else {
+            this->capacity = size + size / 2;
+            this->array = new T[capacity];
+        }
+
         this->size = size;
-        this->capacity = size + size / 2;
     };
 
     //copy c-tor
     DynamicIntArray(const DynamicIntArray<T>& other) {
-        std::size_t originalSize = other.getSize();
-        this->array = new T[originalSize];
-        this->size = originalSize;
-        this->capacity = other.capacity;
+        const std::size_t originalSize = other.getSize();
+        const std::size_t capacity = other.capacity;
+        this->array = new T[capacity];
+        this->capacity = capacity;
 
-        for (std::size_t i = 0; i < originalSize; i++) {
+        this->size = originalSize;
+
+        for (std::size_t i = 0; i < size; i++) {
             this->array[i] = other[i];
         }
     };
@@ -64,12 +73,27 @@ public:
 
     //delete previous memory, create new inner array with updated size
     void setSize(std::size_t newSize) {
+        const std::size_t newCapacity = newSize + newSize / 2;
+
+        T* newArray = new T[newCapacity];
+        std::size_t elementsToCopy = (newSize < this->size) ? newSize : this->size;
+
+        for (std::size_t i = 0; i < elementsToCopy; ++i) {
+            newArray[i] = this->array[i];
+        }
+        if (newSize > this->size) {
+            for (std::size_t i = elementsToCopy; i < newSize; ++i) {
+                newArray[i] = T();
+            }
+        }
+
         delete[] this->array;
 
+        this->array = newArray;
         this->size = newSize;
-        this->capacity = size + size / 2;
-        this->array = new T[newSize];
+        this->capacity = newCapacity;
     };
+
     std::size_t getSize() const {
         return this->size;
     };
@@ -101,17 +125,17 @@ public:
     // insert element at the last index
     // update size
     void push_back(T element) {
-        std::size_t newSize = this->getSize() + 1;
+        const std::size_t newSize = this->size + 1;
 
         if (this->capacity < newSize) {
-            std::size_t newCapacity = this->capacity == 0 ? 1 : this->capacity * 1.5;
-            T* newArray = new T[newCapacity];
+            std::size_t newCapacity = this->capacity == 0 ? 1 : static_cast<std::size_t>(this->capacity * 1.5);
 
-            for (std::size_t i = 0; i < this->getSize(); i++) {
+            T* newArray = new T[newCapacity];
+            for (std::size_t i = 0; i < this->size; ++i) {
                 newArray[i] = this->array[i];
             }
-
             delete[] this->array;
+
             this->array = newArray;
             this->capacity = newCapacity;
         }
@@ -156,6 +180,8 @@ public:
         if (this->size > 0) {
             this->size--;
         }
+
+        this->array[this->size].~T();
     }
 
     T back() const {
