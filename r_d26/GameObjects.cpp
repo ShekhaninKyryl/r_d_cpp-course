@@ -1,3 +1,5 @@
+#include <iostream>
+#include <chrono>
 #include "GameObjects.h"
 #include "Component.h"
 #include "Map.h"
@@ -79,6 +81,7 @@ sf::Sprite* GameObject::getSprite()
 NPC::NPC(const char* filename, NPC_Behavior behavior)
 	: GameObject(filename), m_behavior(behavior)
 {
+	m_sprite.setScale(0.2f, 0.2f);
 	m_sprite.setOrigin(m_sprite.getGlobalBounds().getSize().x / 2,
 		m_sprite.getGlobalBounds().getSize().y / 2);
 

@@ -4,6 +4,7 @@
 
 Player::Player() : GameObject("MINECRAFT_SPRITE.png")
 {
+	m_sprite.setScale(0.2f, 0.2f);
 	//Make origin at the center of the sprite rectangle
 	m_sprite.setOrigin(m_sprite.getGlobalBounds().getSize().x / 2,
 		m_sprite.getGlobalBounds().getSize().y / 2);

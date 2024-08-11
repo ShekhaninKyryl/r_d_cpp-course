@@ -39,12 +39,13 @@ private:
 
 private:
 
-	TilesMapType m_tilesMap = PACMAN_MAP2;
+	TilesMapType m_tilesMap = HUGE_MAP;
 
 	static const TilesMapType R_AND_D_MAP;
 	static const TilesMapType PACMAN_MAP1;
 	static const TilesMapType PACMAN_MAP2;
 	static const TilesMapType TEST_MAP;
+	static const TilesMapType HUGE_MAP;
 
 	std::vector<sf::RectangleShape> m_tilesShapes;
 	void createTileShapes();
