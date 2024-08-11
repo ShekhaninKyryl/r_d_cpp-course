@@ -47,6 +47,13 @@ const Map::TilesMapType Map::PACMAN_MAP2 =
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
+const Map::TilesMapType Map::TEST_MAP =
+{
+	{1,1,1,1,1,1},
+	{1,0,0,0,0,1},
+	{1,1,1,1,1,1},
+};
+
 Map::Map()
 {
 	createTileShapes();

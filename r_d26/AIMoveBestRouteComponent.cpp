@@ -61,7 +61,31 @@ void AIMoveBestRouteComponent::draw(sf::RenderWindow* window)
 Graph AIMoveBestRouteComponent::buildGraph()
 {
     const Map::TilesMapType& mapTiles = Map::GetInstance().getAllTiles();
-    Graph graph(mapTiles[0].size() * mapTiles.size());
+    unsigned mapWidth = mapTiles[0].size();
+    unsigned mapHeight = mapTiles.size();
+    Graph graph(mapWidth * mapHeight);
+
+
+    for (unsigned y = 0; y < mapHeight; ++y) {
+        for (unsigned x = 0; x < mapWidth; ++x) {
+            if (mapTiles[y][x] == 0) {
+                unsigned currentVertex = convertMapTileToVertix(sf::Vector2u(x, y));
+
+                // Check the right neighbor
+                if (x + 1 < mapWidth && mapTiles[y][x + 1] == 0) {
+                    unsigned rightVertex = convertMapTileToVertix(sf::Vector2u(x + 1, y));
+                    graph.addEdge(currentVertex, rightVertex);
+                }
+
+                // Check the bottom neighbor
+                if (y + 1 < mapHeight && mapTiles[y + 1][x] == 0) {
+                    unsigned bottomVertex = convertMapTileToVertix(sf::Vector2u(x, y + 1));
+                    graph.addEdge(currentVertex, bottomVertex);
+                }
+            }
+        }
+    }
+
 
     //Traverse all map tiles
     //Check if it's passable
@@ -109,13 +133,17 @@ sf::Vector2u AIMoveBestRouteComponent::getNextTileToMove()
 
 sf::Vector2u AIMoveBestRouteComponent::convertVertixToMapTile(unsigned vertix) const
 {
-    return { 0, 0 };
+    auto map = Map::GetInstance();
+    unsigned x = vertix % map.GetMapSize().x;
+    unsigned y = vertix / map.GetMapSize().x;
+    return { x, y };
 }
 
 //#TODO, STUDENTS: And Vise-versa function
 unsigned AIMoveBestRouteComponent::convertMapTileToVertix(sf::Vector2u mapTile) const
 {
-    return 0;
+    auto map = Map::GetInstance();
+    return mapTile.y * map.GetMapSize().x + mapTile.x;
 }
 
 
