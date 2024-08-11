@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <thread>
 #include <vector>
+#include <chrono>
 #include "Component.h"
 #include "GameObjects.h"
 #include "CollisionCounter.h"
@@ -16,6 +17,7 @@
 
 #include "Map.h"
 
+bool showTime = false;
 
 void handleSystemEvents(sf::RenderWindow& window)
 {
@@ -83,7 +85,16 @@ int main()
 
         handleSystemEvents(window);
 
+
+        auto start = std::chrono::high_resolution_clock::now();
         gameStateManager.getCurrentGameState()->update(deltaTime);
+
+
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = end - start;
+
+        std::cout << "\rUpdate execution time: " << elapsed.count() << " seconds\n";
+
         gameStateManager.getCurrentGameState()->draw(&window);
         gameStateManager.getCurrentGameState()->updateState();
 

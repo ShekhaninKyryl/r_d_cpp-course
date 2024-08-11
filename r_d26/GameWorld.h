@@ -33,6 +33,8 @@ public:
 	void unblur();
 
 	void update(float DeltaTime);
+	void updateGameObjects(float DeltaTime, size_t start, size_t end);
+	void checkCollisions(size_t start, size_t end, bool& isAnyOfCollided);
 	void draw(sf::RenderWindow* window);
 	
 	Player& GetPlayer() { return player; }
