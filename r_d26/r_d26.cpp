@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <thread>
+#include <vector>
 #include "Component.h"
 #include "GameObjects.h"
 #include "CollisionCounter.h"
@@ -11,6 +12,7 @@
 #include "GameWorld.h"
 #include "GameStateManager.h"
 #include "WindowHelper.h"
+#include "Graph.h"
 
 #include "Map.h"
 
@@ -35,8 +37,34 @@ void handleSystemEvents(sf::RenderWindow& window)
     }
 }
 
+void graphTest() {
+    Graph g(6);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(2, 4);
+    g.addEdge(3, 5);
+    g.addEdge(4, 5);
+
+    unsigned start = 0;
+    unsigned destination = 5;
+    std::vector<unsigned> path = g.bfs(start, destination);
+
+    if (!path.empty()) {
+        std::cout << "Path from " << start << " to " << destination << ": ";
+        for (unsigned v : path) {
+            std::cout << v << " ";
+        }
+        std::cout << std::endl;
+    }
+    else {
+        std::cout << "No path found from " << start << " to " << destination << std::endl;
+    }
+}
+
 int main()
 {
+    graphTest();
+
     srand(time(0));
 
     sf::RenderWindow& window = WindowHelper::Instance().GetRenderWindow();

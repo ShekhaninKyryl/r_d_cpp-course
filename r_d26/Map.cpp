@@ -148,7 +148,7 @@ void Map::createTileShapes()
 			sf::RectangleShape tileShape = sf::RectangleShape({ TILE_WIDTH, TILE_HEIGHT });
 
 			tileShape.setPosition(x, y);
-			tileShape.setFillColor(tile ? sf::Color::Red : sf::Color::Green);
+			tileShape.setFillColor(tile ? sf::Color(192,0,0) : sf::Color(0,192,0));
 
 			m_tilesShapes.push_back(std::move(tileShape));
 			x += TILE_WIDTH;
